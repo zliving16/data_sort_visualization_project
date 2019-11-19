@@ -74,8 +74,8 @@ def radixpage(request):
     a=request.session['a']
     # a=[1, 151, 28 , 8, 333, 33, 3]
     x=radix(a, idex=None, size=None)
-    context={'steps':whatsHappening,'result':x,'list':a}
-    return render(request,'datasortapp/radix.html',context)
+    context={'steps':whatsHappening,'result':x,'list':a,'sorttype':'Radix'}
+    return render(request,'datasortapp/merge.html',context)
 
 def quickSortProcess(request):
     request.session['a']=request.POST['dataArray']
@@ -116,8 +116,8 @@ def quickSort(request):
     whatsHappening.append(f"unsorted list {List}")
     x=quick_sort(List, low, high)
     whatsHappening.append(f"sorted list is {List}")
-    context={'steps':whatsHappening,'result':x,'list':List}
-    return render(request,'datasortapp/quicksort.html',context)
+    context={'steps':whatsHappening,'result':x,'list':List, 'sorttype':'Quick Sort'}
+    return render(request,'datasortapp/merge.html',context)
 
 def mergeprocess(request):
     request.session['a']=request.POST['dataArray']
@@ -178,5 +178,40 @@ def merge(request):
     alist = request.session['a']
     result=mergeSort(alist)
     whatsHappening.append(f'{alist}')
-    context={'steps':whatsHappening,'list':alist,'result':result}
+    context={'steps':whatsHappening,'list':alist,'result':result,'sorttype':'Merge'}
     return render(request, 'datasortapp/merge.html', context)
+
+def gravityProcess(request):
+    whatsHappening=[]
+    def beadsort(input_list):
+        return_list = []
+        transposed_list = [0] * max(input_list)
+
+        for num in input_list:
+            transposed_list[:num] = [n + 1 for n in transposed_list[:num]]
+            whatsHappening.append(f'Number= {num}  and Transposed list at num {transposed_list[:num]} ' )
+
+        for _ in input_list:
+            return_list.append(sum(n > 0 for n in transposed_list))
+            # whatsHappening.append(return_list)
+            transposed_list = [n - 1 for n in transposed_list]
+            # whatsHappening.append(f'transposed list{transposed_list}')
+
+        # whatsHappening.append(f'inputlist={input_list} ')
+        return return_list[::-1]
+    request.session['a']=request.POST['dataArray']
+    data=request.session['a']
+    request.session['a']=[int(s) for s in data.split(',')]
+    request.session['result']=beadsort(request.session['a'])  
+    request.session['steps']=whatsHappening
+    return redirect('/gravitySort')
+
+
+def gravitySort(request):
+    context={'sorttype': 'Gravity Sort', 'result':request.session['result'],
+    'steps':request.session['steps'],'list':request.session['a']
+    }
+
+    return render(request,'datasortapp/merge.html',context)
+
+

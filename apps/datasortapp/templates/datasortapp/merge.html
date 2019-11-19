@@ -4,15 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Radix sort</title>
+    <title>{{sorttype}} Sort</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
 <body>
-
+    <div class="container">
+    <h1>{{sorttype}}</h1>
     <h4>Unsorted list is {{list}}</h4>
     {% for step in steps %}
         <p>{{step|safe}}</p>
     {%endfor%}
     <h4>Sorted list is {{result}}</h4>
+    </div>
     
 </body>
 </html>

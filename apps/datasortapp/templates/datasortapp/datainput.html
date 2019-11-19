@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Input list here</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
 <body>
+    <div class="container">
     <h4>Data input for Radix</h4>
     <form action="/radix/process" method="POST">
         {%csrf_token%}
@@ -26,6 +28,13 @@
         <input type="text" name="dataArray">
         <button>submit</button>
     </form>
-    
+    <h4>Data input for Gravity Sort</h4>
+    <form action="/gravitySort/process" method="POST">
+        {%csrf_token%}
+        <input type="text" name="dataArray">
+        <button>submit</button>
+    </form>
+</div>
+
 </body>
 </html>
