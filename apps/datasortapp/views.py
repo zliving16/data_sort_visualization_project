@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 import math
+import random
 
 def inputdata(request):
     return render(request,'datasortapp/datainput.html')
@@ -41,7 +42,7 @@ def radixpage(request):
     
         if idex == None:
             idex = size
-            whatsHappening.append(f"if idex=size idex=  {idex}")
+            # whatsHappening.append(f"if idex=size idex=  {idex}")
     
         i = size - idex 
     
@@ -65,7 +66,7 @@ def radixpage(request):
             if b == []:
                 continue
             result.append(radix(b, idex-1, size))
-            whatsHappening.append(f"result at b is result= {result}  b= {b} idex= {idex} size=  {size} and bins=  {bins}")
+            whatsHappening.append(f"result at b is result= {result} and bins=  {bins}")
     
         flattened_result = flatten(result)
     
@@ -208,10 +209,170 @@ def gravityProcess(request):
 
 
 def gravitySort(request):
+    if 'a' not in request.session:
+        return redirect('/')
     context={'sorttype': 'Gravity Sort', 'result':request.session['result'],
     'steps':request.session['steps'],'list':request.session['a']
     }
 
     return render(request,'datasortapp/merge.html',context)
+
+def countProcess(request):
+    whatsHappening=[]
+    def countSort(arr):
+        greatest = arr[0]
+        retArr = [0]
+        
+        for x in range (1,len(arr)):
+            if arr[x] > greatest:
+                greatest= arr[x]
+            retArr.append(0)    
+        index = [] 
+        for y in range (0,greatest+1):
+            index.append(0)
+
+        for i in range(len(arr)):
+            temps = arr[i] 
+            index[temps] += 1
+
+        for j in range (len(index)-1):
+            index[j+1] += index[j] 
+        
+        
+        for z in range (len(arr)):
+            temp = arr[z]
+            whatsHappening.append(f' Return Array={retArr}')
+            retArr[index[temp]-1] = temp
+            index[temp] -= 1
+     
+            
+            
+        return retArr
+    request.session['a']=request.POST['dataArray']
+    data=request.session['a']
+    request.session['a']=[int(s) for s in data.split(',')]
+    request.session['result']=countSort(request.session['a'])  
+    request.session['steps']=whatsHappening
+    return redirect('/countSort')
+
+def countpage(request):
+    if 'a' not in request.session:
+        return redirect('/')
+    context={'sorttype': 'Count Sort', 'result':request.session['result'],
+    'steps':request.session['steps'],'list':request.session['a']
+    }
+
+    return render(request,'datasortapp/merge.html',context)
+
+def heapProcess(request):
+    whatsHappening=[]
+    def heapify(arr, n, i): 
+        largest = i  
+        l = 2 * i + 1     
+        r = 2 * i + 2  
+        # whatsHappening.append(f'largest= {largest}')   
+    
+        
+        if l < n and arr[i] < arr[l]: 
+            largest = l 
+            # whatsHappening.append(f'largest= {largest}')   
+
+    
+        
+        if r < n and arr[largest] < arr[r]: 
+            largest = r 
+            # whatsHappening.append(f'largest= {largest}')   
+
+        
+        if largest != i: 
+            arr[i],arr[largest] = arr[largest],arr[i]  
+            # whatsHappening.append(f'arr[i]= {arr[i]} arr[largest]={arr[largest]}')   
+
+    
+            
+            return heapify(arr, n, largest) 
+  
+ 
+    def heapSort(arr): 
+        n = len(arr) 
+        print(arr)
+        
+        for i in range(n, -1, -1): 
+            
+            heapify(arr, n, i) 
+            
+    
+        
+        for i in range(n-1, 0, -1): 
+            arr[i], arr[0] = arr[0], arr[i]  
+            heapify(arr, i, 0) 
+            whatsHappening.append(f'{arr}')
+            # i={i} arr[i]={arr[i]} array=
+
+        return arr
+            
+  
+ 
+    request.session['a']=request.POST['dataArray']
+    data=request.session['a']
+    data=[int(s) for s in data.split(',')]
+    request.session['result']=heapSort(data)  
+    request.session['steps']=whatsHappening 
+    return redirect('/heapSort')
+
+
+
+
+def heapPage(request):
+    if 'a' not in request.session:
+        return redirect('/')
+    context={'sorttype': 'Heap Sort', 'result':request.session['result'],
+    'steps':request.session['steps'],'list':request.session['a']
+    }
+
+    return render(request,'datasortapp/merge.html',context)
+
+def bogoProcess(request):
+    whatsHappening=[]
+    def reorder(a_list):
+        n = len(a_list)
+        for i in range(n):
+            x = random.randint(0,n-1)
+            a_list[i],a_list[x] = a_list[x],a_list[i]
+        # whatsHappening.append(a_list)
+        return a_list
+
+    def bogo_sort(a_list):
+        count = 0
+        while(True):
+            for m in range(len(a_list)-1):
+                if a_list[m] <= a_list[m+1]:
+                    whatsHappening.append(a_list)
+                    pass
+                else:
+                    whatsHappening.append(a_list)
+                    break
+            else:
+                whatsHappening.append(count)
+                return a_list
+            count +=1    
+            a_list = reorder(a_list)
+    request.session['a']=request.POST['dataArray']
+    data=request.session['a']
+    data=[int(s) for s in data.split(',')]
+    request.session['result']=bogo_sort(data)  
+    request.session['steps']=whatsHappening 
+    return redirect('/bogo')
+
+def bogoPage(request):
+    if 'a' not in request.session:
+        return redirect('/')
+    context={'sorttype': 'Heap Sort', 'result':request.session['result'],
+    'steps':request.session['steps'],'list':request.session['a']
+    }
+
+    return render(request,'datasortapp/merge.html',context)
+
+
 
 

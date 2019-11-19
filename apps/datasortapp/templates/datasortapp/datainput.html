@@ -34,6 +34,24 @@
         <input type="text" name="dataArray">
         <button>submit</button>
     </form>
+    <h4>Data input for Count Sort</h4>
+    <form action="/count/process" method="POST">
+        {%csrf_token%}
+        <input type="text" name="dataArray">
+        <button>submit</button>
+    </form>
+    <h4>Data input for Heap Sort</h4>
+    <form action="/heap/process" method="POST">
+        {%csrf_token%}
+        <input type="text" name="dataArray">
+        <button>submit</button>
+    </form>
+    <h4>Data input for Bogo Sort</h4>
+    <form action="/bogo/process" method="POST">
+        {%csrf_token%}
+        <input type="text" name="dataArray">
+        <button>submit</button>
+    </form>
 </div>
 
 </body>
