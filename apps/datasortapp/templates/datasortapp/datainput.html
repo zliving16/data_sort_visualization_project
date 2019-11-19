@@ -20,6 +20,12 @@
         <input type="text" name="dataArray">
         <button>submit</button>
     </form>
+    <h4>Data input for Merge</h4>
+    <form action="/merge/process" method="POST">
+        {%csrf_token%}
+        <input type="text" name="dataArray">
+        <button>submit</button>
+    </form>
     
 </body>
 </html>

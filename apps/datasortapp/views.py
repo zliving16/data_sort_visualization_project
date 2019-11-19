@@ -118,3 +118,65 @@ def quickSort(request):
     whatsHappening.append(f"sorted list is {List}")
     context={'steps':whatsHappening,'result':x,'list':List}
     return render(request,'datasortapp/quicksort.html',context)
+
+def mergeprocess(request):
+    request.session['a']=request.POST['dataArray']
+    data=request.session['a']
+    request.session['a']=[int(s) for s in data.split(',')]
+    return redirect('/merge')
+
+def merge(request):
+    if 'a' not in request.session:
+        return redirect('/')
+    whatsHappening=[]
+    def mergeSort(alist):
+
+        whatsHappening.append(f'Splitting {alist}')
+
+        if len(alist)>1:
+            mid = len(alist)//2
+            lefthalf = alist[:mid]
+            righthalf = alist[mid:]
+            whatsHappening.append(f'left half is {lefthalf}')
+            whatsHappening.append(f'righthalf is  {righthalf}')
+
+            #recursion
+            mergeSort(lefthalf)
+            mergeSort(righthalf)
+
+            i=0
+            j=0
+            k=0
+
+            while i < len(lefthalf) and j < len(righthalf):
+                if lefthalf[i] < righthalf[j]:
+                    alist[k]=lefthalf[i]
+                    #    print('alist at k= ',alist[k])
+                    i=i+1
+                else:
+                    alist[k]=righthalf[j]
+                    j=j+1
+                k=k+1
+
+            while i < len(lefthalf):
+                alist[k]=lefthalf[i]
+                #    print('for i is less than, alist at k= ',alist[k])
+                i=i+1
+                k=k+1
+
+            while j < len(righthalf):
+                alist[k]=righthalf[j]
+                #    print('for j is less than, alist at k= ',alist[k])
+                j=j+1
+                #    print('j= ', j)
+                k=k+1
+                #    print('k=',k)
+
+        whatsHappening.append(f"Merging {alist}")
+        return alist
+
+    alist = request.session['a']
+    result=mergeSort(alist)
+    whatsHappening.append(f'{alist}')
+    context={'steps':whatsHappening,'list':alist,'result':result}
+    return render(request, 'datasortapp/merge.html', context)
