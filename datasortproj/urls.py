@@ -17,5 +17,6 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 urlpatterns = [
-    url(include('apps.datasortapp.urls')),
+    url(r'^', include('apps.datasortapp.urls')),	
 ]
+
