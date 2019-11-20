@@ -186,11 +186,12 @@ def gravityProcess(request):
         whatsHappening.append(f'Unsorted list is{input_list}')
         for num in input_list:
             transposed_list[:num] = [n + 1 for n in transposed_list[:num]]
-            whatsHappening.append(f'Number= {num}  and Transposed list at num {transposed_list[:num]} ' )
+            whatsHappening.append(f'Number= {num}' )
+            # and Transposed list at num {transposed_list[:num]} 
 
         for _ in input_list:
             return_list.append(sum(n > 0 for n in transposed_list))
-            whatsHappening.append(f'return list{return_list}')
+            whatsHappening.append(f'{return_list}')
             transposed_list = [n - 1 for n in transposed_list]
 
         whatsHappening.append(return_list)
@@ -234,7 +235,7 @@ def countProcess(request):
         
         for z in range (len(arr)):
             temp = arr[z]
-            whatsHappening.append(f' Return Array={retArr}')
+            whatsHappening.append(f'{retArr}')
             retArr[index[temp]-1] = temp
             index[temp] -= 1
      
@@ -274,7 +275,7 @@ def heapProcess(request):
  
     def heapSort(arr): 
         n = len(arr) 
-        whatsHappening.append(f'c {arr}') 
+        whatsHappening.append(f'{arr}') 
         for i in range(n, -1, -1):             
             heapify(arr, n, i)     
         
@@ -282,7 +283,7 @@ def heapProcess(request):
             arr[i], arr[0] = arr[0], arr[i]  
             # whatsHappening.append(f'f {arr}')
             heapify(arr, i, 0) 
-            whatsHappening.append(f'e {arr}')
+            whatsHappening.append(f'{arr}')
 
         return arr
     temp=str(request.session['a'])
@@ -419,11 +420,12 @@ def cocktailProcess(request):
                     swap_occurred = True
             
             j += 1
-                
+    temp=str(request.session['a'])            
     lst =request.session['a']
     whatsHappening.append(f'{lst}')
     request.session['result']=cocktail_sort(request.session['a'])  
     request.session['steps']=whatsHappening 
+    request.session['a']=temp
 
 
 
@@ -452,10 +454,12 @@ def bubbleProcess(request):
                     a_list[x+1] = temp
                     whatsHappening.append(f'{a_list}')
         return a_list
+    temp=str(request.session['a'])
     lst =request.session['a']
     whatsHappening.append(f'{lst}')
     request.session['result']=bubble_sort(request.session['a'])  
     request.session['steps']=whatsHappening 
+    request.session['a']=temp
 
 
     return redirect('/bubble')
