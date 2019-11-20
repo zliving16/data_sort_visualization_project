@@ -9,9 +9,16 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'datasortapp/css/style.css' %}">    
     <script src="{% static 'datasortapp/js/sketch.js' %}"></script>
-
+    
 </head>
 <body>
+    <div class="container">
+        {%if sorttype == 'Quick Sort'%}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.sound.min.js"></script>
+        {%endif%}
+    </div>
     <div class="container">
     <h1>{{sorttype}}</h1>
     <h4>Unsorted list is {{list|safe}}</h4>
@@ -21,6 +28,8 @@
     <h4>Sorted list is {{result|safe}}</h4>
     <p>If sorted list is none then no return statement exists at bottom of Function</p>
     </div>
+
+
 
 </body>
 </html>
