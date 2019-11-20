@@ -474,7 +474,74 @@ def bubblePage(request):
 
     return render(request,'datasortapp/merge.html',context)
 
+import numpy as np
+from PIL import Image
+from skimage import color
+from scipy.misc import imsave
 
+import numpy as np
+def colortest(request):
+
+    # newImage = np.random.randint(0, 255, (300, 300, 3))
+
+    # in_hsv_h = color.convert_colorspace(newImage, 'RGB', 'HSV')
+    # in_hsv_s = in_hsv_h.copy()
+    # in_hsv_v = in_hsv_h.copy()
+
+    # for i in range(newImage.shape[0]):
+    #     in_hsv_h[i,:,0] = np.sort(in_hsv_h[i,:,0])
+    #     in_hsv_s[i,:,1] = np.sort(in_hsv_s[i,:,1])
+    #     in_hsv_v[i,:,2] = np.sort(in_hsv_v[i,:,2])
+    # imsave('testing-sorted-hue.png', color.convert_colorspace(in_hsv_h, 'HSV', 'RGB'))
+    # imsave('testing-sorted-saturation.png', color.convert_colorspace(in_hsv_s, 'HSV', 'RGB'))
+    # imsave('testing-sorted-value.png', color.convert_colorspace(in_hsv_v, 'HSV', 'RGB'))
+
+    # img = np.zeros((300, 300, 3), dtype='float32') # hsv works in range from 0 - 1
+
+    # for i in range(img.shape[1]):
+    #     img[:,i,:] = i / img.shape[1], 1.0, 1.0
+
+    # in_rgb = color.convert_colorspace(img, 'HSV', 'RGB')
+    # imsave('initial_hsv_1.png', in_rgb)
+
+    # for i in range(img.shape[0]):
+    #     np.random.shuffle(img[i,:,:])
+
+    # imsave('initial_hsv_1_shuffled.png', color.convert_colorspace(img, 'HSV', 'RGB'))
+    # def bubblequest(A):
+    #     swaps = []
+    #     for i in range(len(A)):
+    #         for k in range(len(A) - 1, i, -1):
+    #             if (A[k] < A[k - 1]):
+    #                 swaps.append([k, k - 1])
+    #                 tmp = A[k]
+    #                 A[k] = A[k - 1]
+    #                 A[k - 1] = tmp
+    #     return A, swaps
+    # currentMove=0
+    # maxMoves=200
+    # moves=[]
+    # def swap_pixels(row, places):
+    #     tmp = img[row,places[0],:].copy()
+    #     img[row,places[0],:] = img[row,places[1],:]
+    #     img[row,places[1],:] = tmp
+
+
+    
+    # movie_image_step = maxMoves // 120
+    # movie_image_frame = 0
+
+    # while currentMove < maxMoves:
+    #     for i in range(img.shape[0]):
+    #         if currentMove < len(moves[i]) - 1:
+    #             swap_pixels(i, moves[i][currentMove])
+
+    #     if currentMove % movie_image_step == 0:
+    #         imsave('%s/%05d.png' % (args.sorter, movie_image_frame), color.convert_colorspace(img, 'HSV', 'RGB'))
+    #         movie_image_frame += 1
+    #     currentMove += 1
+
+    return render(request, 'datasortapp/test.html')
 
 
 
