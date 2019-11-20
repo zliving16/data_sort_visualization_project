@@ -84,4 +84,4 @@ def bogo_sort(a_list):
         count +=1    
         a_list = reorder(a_list)
    
-print(bogo_sort([2,3,2,10,13,7,9,82,4,25,98,351,73]))
+print(bogo_sort([2,3,2,10,13]))

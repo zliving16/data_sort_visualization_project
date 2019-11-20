@@ -3,6 +3,7 @@ import math
 import random
 
 def inputdata(request):
+    request.session.clear()
     return render(request,'datasortapp/datainput.html')
 def radixprocess(request):
     request.session['a']=request.POST['dataArray']
@@ -89,35 +90,30 @@ def quickSort(request):
     if 'a' not in request.session:
         return redirect('/')
     whatsHappening=[]
+    other=[]
     def partition(sort_list, low, high):
         i = (low -1)
-        whatsHappening.append(f'low is= {low}')
-        whatsHappening.append(f'high is= {high}')
         pivot = sort_list[high]
-        whatsHappening.append(f'pivot= {pivot}')
         for j in range(low, high):
             if sort_list[j] <= pivot:
                 i += 1
-                whatsHappening.append(f"i= {i}  j= {j}")
                 sort_list[i], sort_list[j] = sort_list[j], sort_list[i]
-                whatsHappening.append(f"sort List at i=  {sort_list[i]}  sort List at j= {sort_list[j]}")
         sort_list[i+1],sort_list[high] = sort_list[high], sort_list[i+1]
-        whatsHappening.append(f'sort list in partition is {sort_list}')
+        whatsHappening.append(f'{sort_list}')
         return (i+1)
     def quick_sort(sort_list,low,high):
         if low < high:
             pi = partition(sort_list, low, high)
-            whatsHappening.append(f' iterator =  {pi}')
             return  quick_sort(sort_list, low, pi-1), quick_sort(sort_list, pi+1, high)
            
-
     List=request.session['a']
+    other.append(f'{List}')
     low = 0
     high = len(List) - 1
-    whatsHappening.append(f"unsorted list {List}")
+    whatsHappening.append(f"unsorted list {request.session['a']}")
     x=quick_sort(List, low, high)
     whatsHappening.append(f"sorted list is {List}")
-    context={'steps':whatsHappening,'result':x,'list':List, 'sorttype':'Quick Sort'}
+    context={'steps':whatsHappening,'result':List,'list':other, 'sorttype':'Quick Sort'}
     return render(request,'datasortapp/merge.html',context)
 
 def mergeprocess(request):
@@ -177,6 +173,7 @@ def merge(request):
         return alist
 
     alist = request.session['a']
+    List=request.session['a']
     result=mergeSort(alist)
     whatsHappening.append(f'{alist}')
     context={'steps':whatsHappening,'list':alist,'result':result,'sorttype':'Merge'}
@@ -187,17 +184,17 @@ def gravityProcess(request):
     def beadsort(input_list):
         return_list = []
         transposed_list = [0] * max(input_list)
-
+        whatsHappening.append(f'Unsorted list is{input_list}')
         for num in input_list:
             transposed_list[:num] = [n + 1 for n in transposed_list[:num]]
             whatsHappening.append(f'Number= {num}  and Transposed list at num {transposed_list[:num]} ' )
 
         for _ in input_list:
             return_list.append(sum(n > 0 for n in transposed_list))
-            # whatsHappening.append(return_list)
             transposed_list = [n - 1 for n in transposed_list]
             # whatsHappening.append(f'transposed list{transposed_list}')
 
+        whatsHappening.append(return_list)
         # whatsHappening.append(f'inputlist={input_list} ')
         return return_list[::-1]
     request.session['a']=request.POST['dataArray']
@@ -339,24 +336,29 @@ def bogoProcess(request):
         for i in range(n):
             x = random.randint(0,n-1)
             a_list[i],a_list[x] = a_list[x],a_list[i]
-        # whatsHappening.append(a_list)
+        # temp=a_list
+        whatsHappening.append(f'{a_list}')
         return a_list
 
     def bogo_sort(a_list):
         count = 0
         while(True):
             for m in range(len(a_list)-1):
-                if a_list[m] <= a_list[m+1]:
-                    whatsHappening.append(a_list)
+                if a_list[m] <= a_list[m+1]: 
                     pass
                 else:
-                    whatsHappening.append(a_list)
                     break
+                    # whatsHappening.append(a_list)
             else:
-                whatsHappening.append(count)
-                return a_list
-            count +=1    
-            a_list = reorder(a_list)
+                whatsHappening.append(f'Bogo ran {count} times to sort it')
+                return a_list  
+            count +=1
+            # temp=a_list
+            # whatsHappening.append(temp)
+            a_list= reorder(a_list)
+            # return a_list
+
+
     request.session['a']=request.POST['dataArray']
     data=request.session['a']
     data=[int(s) for s in data.split(',')]
@@ -367,11 +369,45 @@ def bogoProcess(request):
 def bogoPage(request):
     if 'a' not in request.session:
         return redirect('/')
-    context={'sorttype': 'Heap Sort', 'result':request.session['result'],
+    context={'sorttype': 'Bogo Sort', 'result':request.session['result'],
     'steps':request.session['steps'],'list':request.session['a']
     }
 
     return render(request,'datasortapp/merge.html',context)
+
+def selectionProcess(request):
+    whatsHappening=[]
+    def selection_sort(a_list):
+        indexing_length = range(0, len(a_list)-1)
+
+        for i in indexing_length:
+            min_value = i
+
+            for x in range(i+1, len(a_list)):
+                if a_list[x] < a_list[min_value]:
+                    min_value = x
+            whatsHappening.append(f'{a_list}')
+            
+            if min_value != i:
+                a_list[min_value], a_list[i] = a_list[i], a_list[min_value]
+        return a_list
+    
+    request.session['a']=request.POST['dataArray']
+    data=request.session['a']
+    data=[int(s) for s in data.split(',')]
+    request.session['result']=selection_sort(data)  
+    request.session['steps']=whatsHappening 
+    return redirect('/selection')
+
+def selectionPage(request):
+    if 'a' not in request.session:
+        return redirect('/')
+    context={'sorttype': 'Selection Sort', 'result':request.session['result'],
+    'steps':request.session['steps'],'list':request.session['a']
+    }
+
+    return render(request,'datasortapp/merge.html',context)
+
 
 
 

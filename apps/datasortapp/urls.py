@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^countSort$', views.countpage),
     url(r'^heapSort$', views.heapPage),
     url(r'^bogo$', views.bogoPage),
+    url(r'^selection$', views.selectionPage),
     url(r'^quicksort/process$', views.quickSortProcess),
     url(r'^radix/process$', views.radixprocess),
     url(r'^merge/process$', views.mergeprocess),
@@ -17,4 +18,5 @@ urlpatterns = [
     url(r'^count/process$', views.countProcess),
     url(r'^heap/process$', views.heapProcess),
     url(r'^bogo/process$', views.bogoProcess),
+    url(r'^selection/process$', views.selectionProcess),
 ]
