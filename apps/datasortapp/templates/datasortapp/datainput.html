@@ -9,63 +9,23 @@
 </head>
 <body>
     <div class="container">
-    <h4>Data input for Radix</h4>
-    <form action="/radix/process" method="POST">
+    <h4>Data input</h4>
+    <form action="/route/process" method="POST">
         {%csrf_token%}
         <input type="text" name="dataArray"><br>
         <select  class="browser-default" name="sortType">
             <option value="radix">Radix</option>
-            <option value="quick">Quick Sort</option>
+            <option value="quicksort">Quick Sort</option>
             <option value="merge">Merge</option>
-            <option value="gravity">Gravity</option>
+            <option value="gravitySort">Gravity</option>
             <option value="count">Count</option>
             <option value="heap">Heap</option>
             <option value="bogo">Bogo</option>
             <option value="selection">Selection</option>
+            <option value="bubble">Bubble</option>
+            <option value="cocktail">Cocktail</option>
+
          </select>
-        <button>submit</button>
-    </form>
-    <br>
-    <h4>Data input for Quick Sort</h4>
-    <form action="/quicksort/process" method="POST">
-        {%csrf_token%}
-        <input type="text" name="dataArray">
-        <button>submit</button>
-    </form>
-    <h4>Data input for Merge</h4>
-    <form action="/merge/process" method="POST">
-        {%csrf_token%}
-        <input type="text" name="dataArray">
-        <button>submit</button>
-    </form>
-    <h4>Data input for Gravity Sort</h4>
-    <form action="/gravitySort/process" method="POST">
-        {%csrf_token%}
-        <input type="text" name="dataArray">
-        <button>submit</button>
-    </form>
-    <h4>Data input for Count Sort</h4>
-    <form action="/count/process" method="POST">
-        {%csrf_token%}
-        <input type="text" name="dataArray">
-        <button>submit</button>
-    </form>
-    <h4>Data input for Heap Sort</h4>
-    <form action="/heap/process" method="POST">
-        {%csrf_token%}
-        <input type="text" name="dataArray">
-        <button>submit</button>
-    </form>
-    <h4>Data input for Bogo Sort</h4>
-    <form action="/bogo/process" method="POST">
-        {%csrf_token%}
-        <input type="text" name="dataArray">
-        <button>submit</button>
-    </form>
-    <h4>Data input for Selection Sort</h4>
-    <form action="/selection/process" method="POST">
-        {%csrf_token%}
-        <input type="text" name="dataArray">
         <button>submit</button>
     </form>
 </div>
