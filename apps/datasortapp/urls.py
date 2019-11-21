@@ -2,6 +2,8 @@ from django.conf.urls import url
 from . import views
                     
 urlpatterns = [
+    url(r'^login$', views.login),
+    url(r'^login/process$', views.loginProcess),
     url(r'^$', views.inputdata),
     url(r'^radix$', views.radixpage),
     url(r'^quicksort$', views.quickSort),

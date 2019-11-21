@@ -1,9 +1,69 @@
 from django.shortcuts import render,redirect
 import math
 import random
+from .models import Users, DataSearch
+import bcrypt
+from django.contrib import messages
+
+def login(request):
+    if 'userid' in request.session:
+        return redirect('/')
+    return render(request, 'datasortapp/logreg.html')
+
+def loginProcess(request):
+    if 'userid' in request.session:
+        return redirect('/')
+    if request.POST['which_form']== 'register':
+        if 'userid' in request.session:
+            return redirect('/')
+        errors = Users.objects.basic_validator(request.POST)
+        if len(errors)> 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+            return redirect('/login')
+        else:
+            first=request.POST['fname']     
+            last=request.POST['lname']
+            email=request.POST['email']          
+            user1=Users.objects.filter(email=email)
+            password=request.POST['pw']
+            hash1 = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+            Users.objects.create(first=first, last=last, email=email,password=hash1)
+            request.session['email']=email
+            curuser=Users.objects.last()
+            request.session['userid'] = curuser.id
+        return redirect('/')
+    if 'userid' in request.session:
+        return redirect('/')
+    
+    if request.POST['which_form']=='login':
+        if 'userid' in request.session:
+            return redirect('/')
+        errors = Users.objects.login_validator(request.POST)
+        if len(errors)> 0:
+            for key, value in errors.items():
+                messages.error(request, value)
+            return redirect('/')
+        email=request.POST['email']
+        user1=Users.objects.filter(email=email)
+        curuser=user1[0]
+        if bcrypt.checkpw(request.POST['pw'].encode(), curuser.password.encode()):
+            request.session['userid'] = curuser.id
+            return redirect('/')
+        else:
+            return redirect('/login')
+
+
+        return redirect('/')
+
+
+
+
 
 def inputdata(request):
-    request.session.clear()
+    if 'userid' not in request.session:
+        return redirect('/login')
+    # request.session.clear()
     return render(request,'datasortapp/datainput.html')
 def radixprocess(request):
     # request.session['a']=request.POST['dataArray']
