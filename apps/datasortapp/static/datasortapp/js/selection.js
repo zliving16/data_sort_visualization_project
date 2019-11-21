@@ -26,9 +26,14 @@ async function selectionSort(arr){
     await sleep(10)
     minIdx = i;
     for(var  j = i+1; j<len; j++){
+      await sleep(5)
+      states[i] = 0
+      states[j] = 1
        if(arr[j]<arr[minIdx]){
           minIdx = j;
        }
+       states[i-1] = -1
+       states[j-1] = -1 
     }
     temp = arr[i];
     arr[i] = arr[minIdx];
@@ -85,7 +90,9 @@ function draw() {
     if (states[i] == 0) {
       fill('#E0777D');
     } else if (states[i] == 1) {
-      fill('#D6FFB7');
+      fill('#4169e1');
+    } else if (states[i] == -1) {
+      fill('#ff9000'); 
     } else {
       fill(255);
     }

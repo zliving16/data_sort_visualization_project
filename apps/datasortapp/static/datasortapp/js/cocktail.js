@@ -25,12 +25,16 @@ async function cocktailSort(arr)
 	do {
 		for(var i = 0; i < arr.length - 2; i++) {
       await sleep(5)
+      states[i]= 0
 			if(arr[i] > arr[i+1]) {
-				var temp = arr[i];
+        var temp = arr[i];
+        states[i-1]= -1
+        states[i+1]= 0
 				arr[i] = arr[i+1];
 				arr[i+1] = temp;
 				swapped = true;
-			}
+      }
+      //states[i]= -1
 		}	
 		if(!swapped) {
 			break;
@@ -38,12 +42,16 @@ async function cocktailSort(arr)
 		swapped = false;
 		for( i = arr.length - 2; i > 0; i--) {
       await sleep(5)
+      
 			if(arr[i] > arr[i+1]) {
-				var temp1 = arr[i];
+        var temp1 = arr[i];
+        states[i-1]= 0
+        states[i+1]= -1
 				arr[i] = arr[i+1];
 				arr[i+1] = temp1;
 				swapped = true;
-			}
+      }
+      //states[i]= -1
 		}
 	} while(swapped);
   return arr;
@@ -98,7 +106,10 @@ function draw() {
       fill('#E0777D');
     } else if (states[i] == 1) {
       fill('#D6FFB7');
-    } else {
+      
+    } else if (states[i] == -1) {
+      fill('#ff9000'); 
+    }else {
       fill(255);
     }
     rect(i * w, height - values[i], w, values[i]);
