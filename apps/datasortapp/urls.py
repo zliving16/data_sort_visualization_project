@@ -24,5 +24,5 @@ urlpatterns = [
     url(r'^cocktail/process$', views.cocktailProcess),
     url(r'^bubble/process$', views.bubbleProcess),
     url(r'^route/process$', views.routeProcess),
-    url(r'^test$', views.colortest),
+    # url(r'^test$', views.colortest),
 ]

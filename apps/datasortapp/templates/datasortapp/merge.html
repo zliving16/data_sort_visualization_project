@@ -8,28 +8,46 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     {% load static %}
     <link rel="stylesheet" href="{% static 'datasortapp/css/style.css' %}">    
-    <script src="{% static 'datasortapp/js/sketch.js' %}"></script>
     
 </head>
 <body>
-    <div class="container">
-           
-        {%if sorttype == 'Quick Sort'%}
+    {%if sorttype == 'Quick Sort'%}
+    <script src="{% static 'datasortapp/js/sketch.js' %}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.sound.min.js"></script>
         {%endif%}
-    </div>
+    {%if sorttype == 'Bubble Sort'%}
+    <script src="{% static 'datasortapp/js/bubble.js' %}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.sound.min.js"></script>
+        {%endif%}
+    {%if sorttype == 'Cocktail Sort'%}
+    <script src="{% static 'datasortapp/js/cocktail.js' %}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.sound.min.js"></script>
+        {%endif%}
+    {%if sorttype == 'Selection Sort'%}
+    <script src="{% static 'datasortapp/js/selection.js' %}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.sound.min.js"></script>
+        {%endif%}
+        </div>
+    <div class="container">
+           
     <div class="container">
     <h1>{{sorttype}}</h1>
     {%if sorttype == 'Quick Sort'%}
-    <br><img src="{% static 'datasortapp/images/quick_s.gif' %}" />
+    <br><img height="200px" width="200px" src="{% static 'datasortapp/images/quick_s.gif' %}" />
     {%endif%}
     {%if sorttype == 'Bubble Sort'%}
-    <br><img src="{% static 'datasortapp/images/bubble_s.gif' %}" />
+    <br><img height="200px" width="200px" src="{% static 'datasortapp/images/bubble_s.gif' %}" />
     {%endif%}
     {%if sorttype == 'Heap Sort'%}
-    <br><img src="{% static 'datasortapp/images/heap_s.gif' %}" />
+    <br><img height="200px" width="200px" src="{% static 'datasortapp/images/heap_s.gif' %}" />
     {%endif%}
     <h4>Unsorted list is {{list|safe}}</h4>
     {% for step in steps %}
