@@ -42,25 +42,33 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.sound.min.js"></script>
         {%endif%}
         </div>
-    <div class="container">
            
     <div class="container">
-    <h1>{{sorttype}}</h1>
-    {%if sorttype == 'Quick Sort'%}
-    <br><img height="200px" width="200px" src="{% static 'datasortapp/images/quick_s.gif' %}" />
-    {%endif%}
-    {%if sorttype == 'Bubble Sort'%}
-    <br><img height="200px" width="200px" src="{% static 'datasortapp/images/bubble_s.gif' %}" />
-    {%endif%}
-    {%if sorttype == 'Heap Sort'%}
-    <br><img height="200px" width="200px" src="{% static 'datasortapp/images/heap_s.gif' %}" />
-    {%endif%}
-    <h4>Unsorted list is {{list|safe}}</h4>
-    {% for step in steps %}
-        <p>{{step|safe}}</p>
-    {%endfor%}
-    <h4>Sorted list is {{result|safe}}</h4>
-    <p>If sorted list is none then no return statement exists at bottom of Function</p>
+        <nav>
+            <div class="nav-wrapper">
+                <a href="#" class="brand-logo">{{sorttype}}</a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="/">Try More!</a></li>
+                </ul>
+            </div>
+        </nav>
+        {%if sorttype == 'Quick Sort'%}
+        <br><img class="quick" height="200px" width="200px" src="{% static 'datasortapp/images/quick_s.gif' %}" />
+        {%endif%}
+        {%if sorttype == 'Bubble Sort'%}
+        <br><img height="200px" width="200px" src="{% static 'datasortapp/images/bubble_s.gif' %}" />
+        {%endif%}
+        {%if sorttype == 'Heap Sort'%}
+        <br><img height="200px" width="200px" src="{% static 'datasortapp/images/heap_s.gif' %}" />
+        {%endif%}
+        <textarea class="texty" rows="4" cols="50">
+        -Unsorted list is {{list|safe}}-
+        {% for step in steps %}
+        {{step|safe}}
+        {%endfor%}
+        Sorted list is {{result|safe}}
+        If sorted list is none then no return statement exists at bottom of Function
+        </textarea>
     </div>
     <!-- <img src="{% static 'app_name/images/image.jpg' %}" /> -->
 
