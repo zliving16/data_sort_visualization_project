@@ -26,7 +26,7 @@ def radixpage(request):
         
         for sub_list in some_list:
             new_list += sub_list
-            whatsHappening.append(f"for sublist in some list  {some_list}  at sub list=  {sub_list}  and new list=  {new_list}")
+            whatsHappening.append(f"list {some_list}   sub list={sub_list}   new list={new_list}")
         return new_list
     
     def radix(some_list, idex=None, size=None):
@@ -57,17 +57,17 @@ def radixpage(request):
             dest_c = num_s[i]
             dest_i = int(dest_c) 
             bins[dest_i] += [e]
-            whatsHappening.append(f"bins at e= {bins[dest_i]}")
-            whatsHappening.append(f"bins=  {bins} at e=  {e}")
+            whatsHappening.append(f"{bins[dest_i]}")
+            whatsHappening.append(f"{bins}")
 
-        whatsHappening.append(f"bins= {bins}")
+        # whatsHappening.append(f"bins= {bins}")
     
         result = []
         for b in bins:
             if b == []:
                 continue
             result.append(radix(b, idex-1, size))
-            whatsHappening.append(f"result at b is result= {result} and bins=  {bins}")
+            whatsHappening.append(f"result= {result}    bins={bins}")
     
         flattened_result = flatten(result)
     
