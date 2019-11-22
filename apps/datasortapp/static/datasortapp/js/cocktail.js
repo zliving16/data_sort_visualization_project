@@ -110,7 +110,7 @@ function draw() {
     } else if (states[i] == -1) {
       fill('#ff9000'); 
     }else {
-      fill(255);
+      fill('#a7a3c7');
     }
     rect(i * w, height - values[i], w, values[i]);
   }
