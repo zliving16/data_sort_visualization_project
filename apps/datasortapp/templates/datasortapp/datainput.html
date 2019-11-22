@@ -6,29 +6,33 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Input list here</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'datasortapp/css/input.css' %}">   
 </head>
 <body>
-    <div class="container">
-    <h4>Data input</h4>
-    <form action="/route/process" method="POST">
-        {%csrf_token%}
-        <input type="text" name="dataArray"><br>
-        <select  class="browser-default" name="sortType">
-            <option value="radix">Radix</option>
-            <option value="quicksort">Quick Sort</option>
-            <option value="merge">Merge</option>
-            <option value="gravitySort">Gravity</option>
-            <option value="count">Count</option>
-            <option value="heap">Heap</option>
-            <option value="bogo">Bogo</option>
-            <option value="selection">Selection</option>
-            <option value="bubble">Bubble</option>
-            <option value="cocktail">Cocktail</option>
-
-         </select>
-        <button>submit</button>
-    </form>
-</div>
-
+    <div class="background browser-default">
+        <div class="container">
+            <h1>Data Input</h1>
+            <form action="/route/process" method="POST">
+                {%csrf_token%}
+                <input type="text" name="dataArray"><br>
+                <select  class="browser-default" name="sortType">
+                    <option value="radix">Radix</option>
+                    <option value="quicksort">Quick Sort</option>
+                    <option value="merge">Merge</option>
+                    <option value="gravitySort">Gravity</option>
+                    <option value="count">Count</option>
+                    <option value="heap">Heap</option>
+                    <option value="bogo">Bogo</option>
+                    <option value="selection">Selection</option>
+                    <option value="bubble">Bubble</option>
+                    <option value="cocktail">Cocktail</option>
+                </select>
+                <div class="button">
+                <button class='btn-small blue accent-5'>Submit</button> 
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

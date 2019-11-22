@@ -17,6 +17,20 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
+from django.conf import settings
+from django.utils.functional import curry
+from django.views.defaults import *
+# from rest_framework import routers
+# from API.views import *
+
+admin.autodiscover()
+
+handler500 = "web.views.server_error"
+handler404 = "web.views.page_not_found_error"
+
+
+
+
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -28,14 +42,18 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-# Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
+# Routers provide an easy way of automatically determining the URL conf.
 
 
 urlpatterns = [
-    url(r'^', include(router.urls)),
+    # url(r'^', include('auth0login.urls')),
+    url(r'admin/', admin.site.urls),
+    url(r'^auth0', include(router.urls)),
     url(r'^', include('apps.datasortapp.urls')),	
-    url(r'^api-auth/', include('rest_framework.urls'))
+    url(r'^api-auth/', include('rest_framework.urls')),
+    # url(r'^api-token-auth/', 'rest_framework.authtoken.views.obtain_auth_token'),
+    
 ]
 
