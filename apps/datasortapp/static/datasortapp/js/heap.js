@@ -5,7 +5,7 @@
 // https://youtu.be/eqo2LxRADhU
 
 let values = [];
-let w = 1;
+let w = 10;
 
 let states = [];
 
@@ -23,17 +23,22 @@ async function heap_root(input, i) {
   var left = 2 * i + 1;
   var right = 2 * i + 2;
   var max = i;
+  
 
   if (left < array_length && input[left] > input[max]) {
       max = left;
+      states[i] = 1
   }
 
   if (right < array_length && input[right] > input[max])     {
       max = right;
+      states[i] = 1
+      
   }
 
   if (max != i) {
       swap(input, i, max);
+      states[i] = 1
       heap_root(input, max);
   }
 }
@@ -51,12 +56,15 @@ async function heapSort(input) {
 
   for (var i = Math.floor(array_length / 2); i >= 0; i -= 1)      {
       await sleep(50)
+      
       heap_root(input, i);
+      
     }
 
   for (i = input.length - 1; i > 0; i--) {
       await sleep(50)
       swap(input, 0, i);
+      states[i] = -1
       array_length--;
     
     
@@ -74,7 +82,7 @@ function draw() {
     } else if (states[i] == 1) {
       fill('#D6FFB7');
     } else {
-      fill(255);
+      fill('#ff9000');
     }
     rect(i * w, height - values[i], w, values[i]);
   }
