@@ -25,15 +25,22 @@ async function bubbleSort(arr){
   for (var i = len-1; i>=0; i--){ 
     for(var j = 1; j<=i; j++){
       await sleep(10)
+      
+      states[j]= 0
       // let index = j
       // states[j] = 0
       if(arr[j-1]>arr[j]){
-          
+          states[j-1]= -1
           var temp = arr[j-1];
           arr[j-1] = arr[j];
-          states[j] = -1
+          
           arr[j] = temp;
+          states[j]= 0
+          
        }
+       states[j]= -1
+      // states[i-1]=-1
+      // states[j-1]=-1
     }
   }
   return arr;
@@ -87,6 +94,8 @@ function draw() {
       fill('#E0777D');
     } else if (states[i] == 1) {
       fill('#D6FFB7');
+    } else if (states[i] == -1) {
+      fill('#ff9000');  
     } else {
       fill(255);
     }
